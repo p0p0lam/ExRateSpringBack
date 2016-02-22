@@ -24,11 +24,11 @@ public class MongoDbConfig {
         int openshiftMongoDbPort = Integer.parseInt(System.getenv("OPENSHIFT_MONGODB_DB_PORT"));
         String username = System.getenv("OPENSHIFT_MONGODB_DB_USERNAME");
         String password = System.getenv("OPENSHIFT_MONGODB_DB_PASSWORD");
-        MongoClient client = new MongoClient(openshiftMongoDbHost, openshiftMongoDbPort);
+        //MongoClient client = new MongoClient(openshiftMongoDbHost, openshiftMongoDbPort);
         Mongo mongo = new Mongo(openshiftMongoDbHost, openshiftMongoDbPort);
         UserCredentials userCredentials = new UserCredentials(username, password);
         String databaseName = System.getenv("OPENSHIFT_APP_NAME");
-        MongoDbFactory mongoDbFactory = new SimpleMongoDbFactory(client, databaseName, userCredentials);
+        MongoDbFactory mongoDbFactory = new SimpleMongoDbFactory(mongo, databaseName, userCredentials);
         MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory);
         return mongoTemplate;
     }
