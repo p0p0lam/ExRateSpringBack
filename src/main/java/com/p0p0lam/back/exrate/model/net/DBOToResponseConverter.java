@@ -3,7 +3,6 @@ package com.p0p0lam.back.exrate.model.net;
 import com.p0p0lam.back.exrate.model.OrganizationDBO;
 import com.p0p0lam.back.exrate.model.finance.Currency;
 import com.p0p0lam.back.exrate.util.DateUtil;
-import com.sun.istack.internal.NotNull;
 import org.springframework.data.geo.GeoResult;
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.List;
  */
 public class DBOToResponseConverter {
 
-    public static List<Rate> getRatesFromOrganizationDBOList(@NotNull List<GeoResult<OrganizationDBO>> source, String currencyCode){
+    public static List<Rate> getRatesFromOrganizationDBOList(List<GeoResult<OrganizationDBO>> source, String currencyCode){
         List<Rate> result = new ArrayList<>(source.size());
         for (GeoResult<OrganizationDBO> organizationDBOGeoResult : source) {
             Rate rate = new Rate(currencyCode);
