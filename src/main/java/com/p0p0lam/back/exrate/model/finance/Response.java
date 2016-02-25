@@ -1,4 +1,4 @@
-package com.p0p0lam.back.exrate.model.net;
+package com.p0p0lam.back.exrate.model.finance;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -23,7 +23,7 @@ public class Response {
     public Map<String, String> locations;
 
     @SerializedName("org_type")
-    public Map<Integer, String> orgTypes;
+    public Map<String, String> orgTypes;
 
     @SerializedName("city")
     public Map<String, String> cities;

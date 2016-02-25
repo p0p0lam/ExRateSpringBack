@@ -1,40 +1,74 @@
 package com.p0p0lam.back.exrate.model.net;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.data.geo.Point;
 
 /**
- * Created by Sergey on 22.02.2016.
+ * Created by Sergey on 23.02.2016.
  */
 public class Organization {
-    @SerializedName("address")
-    @Expose
-    private String address;
-    @SerializedName("coords")
-    @Expose
-    private List<Double> coords = new ArrayList<Double>();
-    @SerializedName("city_id")
-    @Expose
-    private String cityId;
-    @SerializedName("location_id")
-    @Expose
-    private String locationId;
-    @SerializedName("currency")
-    @Expose
-    private List<Currency> currency = new ArrayList<Currency>();
-    @SerializedName("phone")
-    @Expose
+    public static final int TYPE_FOP =2;
+    public static final int TYPE_BANK =1;
     private String phone;
-    @SerializedName("title")
-    @Expose
     private String title;
-    @SerializedName("type")
-    @Expose
-    private Integer type;
-    @SerializedName("link")
-    @Expose
+    private String address;
     private String link;
+    private int type;
+    private double latitude = 0.0D;
+    private double longitude = 0.0D;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 }

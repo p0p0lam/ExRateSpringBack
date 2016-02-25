@@ -7,7 +7,13 @@
     <logger name="com.p0p0lam.back.exrate" level="DEBUG" >
         <appender-ref ref="STDOUT"/>
     </logger>
-    <logger name="org.springframework.web" level="DEBUG">
+    <logger name="org.springframework.web" level="INFO">
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <logger name="org.springframework.data.mongodb" level="TRACE">
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <logger name="com.mongodb" level="INFO">
         <appender-ref ref="STDOUT" />
     </logger>
 </configuration>
