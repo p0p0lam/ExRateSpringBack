@@ -9,6 +9,7 @@ public class IdNameDBO {
     @Id
     private String id;
     private String name;
+    private String nameRu;
 
     public IdNameDBO() {
     }
@@ -32,6 +33,14 @@ public class IdNameDBO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNameRu() {
+        return nameRu;
+    }
+
+    public void setNameRu(String nameRu) {
+        this.nameRu = nameRu;
     }
 
     @Override

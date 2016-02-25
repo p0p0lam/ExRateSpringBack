@@ -16,16 +16,21 @@ public class OrganizationDBO {
     @Id
     private String id;
     private String address;
+    private String addressRu;
     //@GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     private GeoJsonPoint coords;
     private List<Double> legacyCoords;
+    private String cityRu;
     private String city;
     private String location;
+    private String locationRu;
     private List<Currency> currency = new ArrayList<Currency>();
     private String phone;
     private String title;
+    private String titleRu;
     private Integer type;
     private String link;
+    private String linkRu;
 
     public String getId() {
         return id;
@@ -115,6 +120,46 @@ public class OrganizationDBO {
         this.link = link;
     }
 
+
+    public String getAddressRu() {
+        return addressRu;
+    }
+
+    public void setAddressRu(String addressRu) {
+        this.addressRu = addressRu;
+    }
+
+    public String getCityRu() {
+        return cityRu;
+    }
+
+    public void setCityRu(String cityRu) {
+        this.cityRu = cityRu;
+    }
+
+    public String getLocationRu() {
+        return locationRu;
+    }
+
+    public void setLocationRu(String locationRu) {
+        this.locationRu = locationRu;
+    }
+
+    public String getTitleRu() {
+        return titleRu;
+    }
+
+    public void setTitleRu(String titleRu) {
+        this.titleRu = titleRu;
+    }
+
+    public String getLinkRu() {
+        return linkRu;
+    }
+
+    public void setLinkRu(String linkRu) {
+        this.linkRu = linkRu;
+    }
 
     @Override
     public String toString() {

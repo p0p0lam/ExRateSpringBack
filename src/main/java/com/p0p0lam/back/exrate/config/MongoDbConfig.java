@@ -43,6 +43,11 @@ public class MongoDbConfig extends AbstractMongoConfiguration {
         return new SimpleMongoDbFactory((MongoClient)mongo(), getDatabaseName());
     }
 
+    @Override
+    public MongoTemplate mongoTemplate() throws Exception {
+        return super.mongoTemplate();
+    }
+
     /*
     @Bean
     public MongoTemplate mongoTemplate() throws Exception {
