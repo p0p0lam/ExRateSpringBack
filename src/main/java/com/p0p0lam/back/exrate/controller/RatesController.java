@@ -1,6 +1,9 @@
 package com.p0p0lam.back.exrate.controller;
 
+import com.p0p0lam.back.exrate.model.CurrencyDBO;
 import com.p0p0lam.back.exrate.model.finance.Organization;
+import com.p0p0lam.back.exrate.model.net.Dict;
+import com.p0p0lam.back.exrate.model.net.DictResponse;
 import com.p0p0lam.back.exrate.model.net.RatesResponse;
 import com.p0p0lam.back.exrate.service.BusinessService;
 import org.slf4j.Logger;
@@ -25,6 +28,11 @@ public class RatesController {
 
     @Autowired
     private BusinessService businessService;
+
+    @RequestMapping(value = "/getCurrencies", method = RequestMethod.GET)
+    public DictResponse<List<Dict>> getCurrencies(@RequestParam(required = false, defaultValue = "ua") String language){
+        return businessService.getCurrencies(language);
+    }
 
     @RequestMapping(value = "/getRates", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public RatesResponse getRates(@RequestParam int start, @RequestParam int count, @RequestParam double lat, @RequestParam double lng,

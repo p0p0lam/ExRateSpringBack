@@ -1,8 +1,12 @@
 package com.p0p0lam.back.exrate.service;
 
+import com.p0p0lam.back.exrate.model.CurrencyDBO;
 import com.p0p0lam.back.exrate.model.OrganizationDBO;
 import com.p0p0lam.back.exrate.model.net.DBOToResponseConverter;
+import com.p0p0lam.back.exrate.model.net.Dict;
+import com.p0p0lam.back.exrate.model.net.DictResponse;
 import com.p0p0lam.back.exrate.model.net.RatesResponse;
+import com.p0p0lam.back.exrate.repository.CurrencyRepository;
 import com.p0p0lam.back.exrate.repository.OrganizationRepository;
 import com.p0p0lam.back.exrate.repository.RatesMinMax;
 import com.p0p0lam.back.exrate.repository.ResponseRepository;
@@ -19,6 +23,7 @@ import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
@@ -36,6 +41,9 @@ public class BusinessServiceImpl implements BusinessService {
     private OrganizationRepository organizationRepository;
     @Autowired
     private FinanceService financeService;
+
+    @Autowired
+    CurrencyRepository currencyRepository;
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -91,5 +99,13 @@ public class BusinessServiceImpl implements BusinessService {
         return results.getUniqueMappedResult();
     }
 
-
+    @Override
+    public DictResponse<List<Dict>> getCurrencies(String language) {
+        List<CurrencyDBO> currencies = currencyRepository.findAll();
+        List<Dict> result = new ArrayList<>(currencies.size());
+        for (CurrencyDBO currency : currencies) {
+            result.add(new Dict(currency.getId(), "ru".equals(language)?currency.getNameRu():currency.getName()));
+        }
+        return new DictResponse<>(result);
+    }
 }
