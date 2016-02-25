@@ -40,7 +40,7 @@ public class MongoDbConfig extends AbstractMongoConfiguration {
     @Override
     @Bean
     public MongoDbFactory mongoDbFactory() throws Exception {
-        return new SimpleMongoDbFactory(mongo(), getDatabaseName());
+        return new SimpleMongoDbFactory((MongoClient)mongo(), getDatabaseName());
     }
 
     /*
