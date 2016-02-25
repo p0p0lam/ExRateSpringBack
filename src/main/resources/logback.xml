@@ -10,7 +10,7 @@
     <logger name="org.springframework.web" level="INFO">
         <appender-ref ref="STDOUT" />
     </logger>
-    <logger name="org.springframework.data.mongodb" level="TRACE">
+    <logger name="org.springframework.data.mongodb" level="INFO">
         <appender-ref ref="STDOUT" />
     </logger>
     <logger name="com.mongodb" level="INFO">

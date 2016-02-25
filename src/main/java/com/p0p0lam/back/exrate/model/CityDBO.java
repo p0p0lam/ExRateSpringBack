@@ -9,7 +9,4 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "cities")
 public class CityDBO extends IdNameDBO{
 
-    public CityDBO(String id, String name) {
-        super(id, name);
-    }
 }

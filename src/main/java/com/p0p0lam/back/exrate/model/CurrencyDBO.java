@@ -7,7 +7,4 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document(collection = "currencies")
 public class CurrencyDBO extends IdNameDBO{
-    public CurrencyDBO(String id, String name) {
-        super(id, name);
-    }
 }

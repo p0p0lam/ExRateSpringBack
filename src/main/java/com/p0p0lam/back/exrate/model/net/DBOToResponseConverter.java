@@ -37,6 +37,8 @@ public class DBOToResponseConverter {
             organization.setLongitude(organizationDBO.getCoords().getX());
             organization.setType(organizationDBO.getType());
             organization.setLink(organizationDBO.getLink());
+            organization.setCity(organizationDBO.getCity());
+            organization.setLocation(organizationDBO.getLocation());
             rate.setOrganization(organization);
             rate.setDistance(organizationDBOGeoResult.getDistance());
             result.add(rate);

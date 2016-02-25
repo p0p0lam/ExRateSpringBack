@@ -2,8 +2,6 @@ package com.p0p0lam.back.exrate.model;
 
 import com.p0p0lam.back.exrate.model.finance.Organization;
 import com.p0p0lam.back.exrate.model.finance.Response;
-import com.sun.istack.internal.NotNull;
-import org.springframework.data.mongodb.core.geo.GeoJson;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
 import java.util.*;
@@ -32,7 +30,7 @@ public class FinanceToDBOConverter {
                 OrganizationDBO dbo = new OrganizationDBO();
                 dbo.setId(getOrgIdFromLink(organization.getLink()));
                 dbo.setAddress(organization.getAddress());
-                dbo.setCityId(organization.getCityId());
+                dbo.setCity(response.cities.get(organization.getCityId()));
                 if (organization.getCoords()!=null && organization.getCoords().size()==2) {
                     Double lat = organization.getCoords().get(1);
                     Double lng = organization.getCoords().get(0);
@@ -48,7 +46,7 @@ public class FinanceToDBOConverter {
 
                 dbo.setCurrency(organization.getCurrency());
                 dbo.setLink(organization.getLink());
-                dbo.setLocationId(organization.getLocationId());
+                dbo.setLocation(response.locations.get(organization.getLocationId()));
                 dbo.setPhone(organization.getPhone());
                 dbo.setTitle(organization.getTitle());
                 dbo.setType(organization.getType());

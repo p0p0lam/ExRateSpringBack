@@ -7,7 +7,4 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document(collection = "locations")
 public class LocationDBO extends IdNameDBO {
-    public LocationDBO(String id, String name) {
-        super(id, name);
-    }
 }

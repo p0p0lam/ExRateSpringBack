@@ -33,4 +33,23 @@ public class IdNameDBO {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        IdNameDBO idNameDBO = (IdNameDBO) o;
+
+        if (!id.equals(idNameDBO.id)) return false;
+        return name.equals(idNameDBO.name);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        return result;
+    }
 }

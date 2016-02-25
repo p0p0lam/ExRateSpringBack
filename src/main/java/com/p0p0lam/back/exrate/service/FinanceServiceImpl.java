@@ -1,43 +1,36 @@
 package com.p0p0lam.back.exrate.service;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonParseException;
-import com.google.gson.stream.JsonReader;
 import com.p0p0lam.back.exrate.model.*;
-import com.p0p0lam.back.exrate.model.finance.Organization;
 import com.p0p0lam.back.exrate.model.finance.Response;
 import com.p0p0lam.back.exrate.repository.*;
 import com.p0p0lam.back.exrate.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.locks.ReentrantLock;
 
-
 /**
- * Created by Sergey on 22.02.2016.
+ * Created by Sergey on 25.02.2016.
  */
-@Service(value = "financeServiceMock")
-public class FinanceServiceMock implements FinanceService {
-    private static final Logger logger = LoggerFactory.getLogger(FinanceServiceMock.class);
+@Transactional
+@Service(value = "financeService")
+public class FinanceServiceImpl implements FinanceService {
+    private static final Logger logger = LoggerFactory.getLogger(FinanceServiceImpl.class);
     private final ReentrantLock mainLock = new ReentrantLock();
-    @Autowired
-    Gson gson;
-
+    private static final URI URI_RU =URI.create("http://resources.finance.ua/ru/app-exchange/currency-cash");
+    private static final URI URI_UA =URI.create("http://resources.finance.ua/ua/app-exchange/currency-cash");
     @Autowired
     ThreadPoolExecutor asyncTaskExecutor;
     @Autowired
@@ -56,6 +49,9 @@ public class FinanceServiceMock implements FinanceService {
     @Autowired
     OrganizationRepository organizationRepository;
 
+    @Autowired
+    RestTemplate restTemplate;
+
 
     @Override
     public synchronized boolean isRunning() {
@@ -64,27 +60,25 @@ public class FinanceServiceMock implements FinanceService {
 
     @Async
     public void runUpdateIfNeed(){
-            mainLock.lock();
-            try {
-                getData();
-            } finally {
-                mainLock.unlock();
-            }
+        mainLock.lock();
+        try {
+            getData();
+        } finally {
+            mainLock.unlock();
+        }
     }
 
     @Override
     @Transactional
     public void getData() {
-
-        logger.info("Loading data from finance mock");
-        Resource resource = new ClassPathResource("finance.json");
         ResponseDBO localResponse = responseRepository.findOne(ResponseDBO._ID);
         if (localResponse!=null && DateUtil.getMinutesDiffFromNow(localResponse.getSyncDate())< DEFAULT_SYNC_PERIOD_MINUTES){
             logger.info("Sync period not expired. exitting");
             return;
         }
         try {
-            Response response = gson.fromJson(new JsonReader(new InputStreamReader(resource.getInputStream())), Response.class);
+            logger.info("Getting data from finance service");
+            Response response = restTemplate.getForObject(URI_RU, Response.class);
             if (response.lastChangesDate.equals(localResponse.getLastChangedDate())){
                 logger.info("Remote data not changed from last sync. Exitting");
                 localResponse.setSyncDate(DateUtil.now().getTime());
@@ -92,13 +86,9 @@ public class FinanceServiceMock implements FinanceService {
                 return;
             }
             logger.info("Got data");
-
             processResponse(response);
-
-        } catch (IOException e) {
-            logger.error("Can't open json", e);
-        } catch (JsonParseException e) {
-            logger.error("Can't parse json", e);
+        } catch (RestClientException e){
+            logger.error("Can't get data from finance.", e);
         }
     }
 
@@ -142,6 +132,4 @@ public class FinanceServiceMock implements FinanceService {
         responseRepository.save(dbo);
         logger.info("Saved response");
     }
-
-
 }

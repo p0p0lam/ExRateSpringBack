@@ -12,6 +12,8 @@ public class Organization {
     private String title;
     private String address;
     private String link;
+    private String city;
+    private String location;
     private int type;
     private double latitude = 0.0D;
     private double longitude = 0.0D;
@@ -70,5 +72,21 @@ public class Organization {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

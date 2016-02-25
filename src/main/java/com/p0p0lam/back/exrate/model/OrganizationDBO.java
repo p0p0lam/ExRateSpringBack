@@ -1,12 +1,8 @@
 package com.p0p0lam.back.exrate.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import com.p0p0lam.back.exrate.model.finance.Currency;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
-import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
-import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -23,8 +19,8 @@ public class OrganizationDBO {
     //@GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     private GeoJsonPoint coords;
     private List<Double> legacyCoords;
-    private String cityId;
-    private String locationId;
+    private String city;
+    private String location;
     private List<Currency> currency = new ArrayList<Currency>();
     private String phone;
     private String title;
@@ -63,20 +59,20 @@ public class OrganizationDBO {
         this.legacyCoords = legacyCoords;
     }
 
-    public String getCityId() {
-        return cityId;
+    public String getCity() {
+        return city;
     }
 
-    public void setCityId(String cityId) {
-        this.cityId = cityId;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public String getLocationId() {
-        return locationId;
+    public String getLocation() {
+        return location;
     }
 
-    public void setLocationId(String locationId) {
-        this.locationId = locationId;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public List<Currency> getCurrency() {
@@ -140,8 +136,8 @@ public class OrganizationDBO {
 
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (!legacyCoords.equals(that.legacyCoords)) return false;
-        if (!cityId.equals(that.cityId)) return false;
-        if (!locationId.equals(that.locationId)) return false;
+        if (!city.equals(that.city)) return false;
+        if (!location.equals(that.location)) return false;
         if (currency != null ? !currency.equals(that.currency) : that.currency != null) return false;
         if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
         if (!title.equals(that.title)) return false;
@@ -154,8 +150,8 @@ public class OrganizationDBO {
     public int hashCode() {
         int result = address != null ? address.hashCode() : 0;
         result = 31 * result + legacyCoords.hashCode();
-        result = 31 * result + cityId.hashCode();
-        result = 31 * result + locationId.hashCode();
+        result = 31 * result + city.hashCode();
+        result = 31 * result + location.hashCode();
         result = 31 * result + (currency != null ? currency.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + title.hashCode();
