@@ -53,6 +53,7 @@ public class BusinessServiceImpl implements BusinessService {
 
         RatesResponse response = new RatesResponse();
         if (result!=null && result.hasContent()){
+            logger.info("Got result from db. All count: {}, Pages: {}, ", result.getTotalElements(), result.getTotalPages());
             RatesMinMax minMax = getRatesMinMax(point, distance, currency, (int) result.getTotalElements());
             response.setAllCount((int) result.getTotalElements());
             List<GeoResult<OrganizationDBO>> content = result.getContent();
@@ -63,6 +64,8 @@ public class BusinessServiceImpl implements BusinessService {
                 response.setMinAskRate(minMax.minAsk);
                 response.setMinBidRate(minMax.minBid);
             }
+        } else {
+            logger.info("No results found for given criteria");
         }
         return response;
     }
