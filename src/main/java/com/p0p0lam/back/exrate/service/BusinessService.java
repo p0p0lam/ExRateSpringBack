@@ -9,6 +9,6 @@ import java.util.List;
  * Created by Sergey on 23.02.2016.
  */
 public interface BusinessService {
-    RatesResponse getRates(int start, int count, double lat, double lng, int distance, String currency);
+    RatesResponse getRates(int start, int count, double lat, double lng, int distance, String currency, String language);
 
 }

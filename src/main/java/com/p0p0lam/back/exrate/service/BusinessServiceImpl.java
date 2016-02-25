@@ -41,7 +41,7 @@ public class BusinessServiceImpl implements BusinessService {
     private MongoTemplate mongoTemplate;
 
     @Override
-    public RatesResponse getRates(int start, int count, double lat, double lng, int distanceKm, String currency) {
+    public RatesResponse getRates(int start, int count, double lat, double lng, int distanceKm, String currency, String language) {
         if (!financeService.isRunning()) {
             financeService.runUpdateIfNeed();
         }
@@ -57,7 +57,7 @@ public class BusinessServiceImpl implements BusinessService {
             RatesMinMax minMax = getRatesMinMax(point, distance, currency, (int) result.getTotalElements());
             response.setAllCount((int) result.getTotalElements());
             List<GeoResult<OrganizationDBO>> content = result.getContent();
-            response.setRates(DBOToResponseConverter.getRatesFromOrganizationDBOList(content, currency));
+            response.setRates(DBOToResponseConverter.getRatesFromOrganizationDBOList(content, currency, language));
             if (minMax!=null) {
                 response.setMaxAskRate(minMax.maxAsk);
                 response.setMaxBidRate(minMax.maxBid);

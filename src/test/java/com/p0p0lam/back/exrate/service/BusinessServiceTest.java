@@ -27,7 +27,7 @@ public class BusinessServiceTest extends BaseTest {
 
     @Test
     public void testGetRates() throws Exception {
-        RatesResponse response = businessService.getRates(0,10, POINT.getY(), POINT.getX(), (int) DISTANCE_MAX.getValue(), "BYR");
+        RatesResponse response = businessService.getRates(0,10, POINT.getY(), POINT.getX(), (int) DISTANCE_MAX.getValue(), "BYR", "ua");
         assertTrue(response.getAllCount()>0);
     }
 }
